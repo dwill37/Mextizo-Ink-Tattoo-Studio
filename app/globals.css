@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+/*
+  Paleta claroscuro: negros profundos, grises de humo y un blanco hueso cálido.
+  Acento único: jade (guiño a la región maya / "Mextizo"), usado solo en detalles,
+  foco y estados activos. Sitio de un solo tema (oscuro) por identidad de marca.
+  Radios: botones en píldora, imágenes y superficies a 2px. Nada más.
+*/
+@theme {
+  --color-ink: #0a0a09;
+  --color-coal: #121211;
+  --color-ash: #1a1a18;
+  --color-line: #2b2a27;
+  --color-smoke: #a29f98;
+  --color-bone: #ece8e1;
+  --color-jade: #8fbfab;
+
+  --font-display: var(--font-bodoni), "Didot", "Bodoni 72", serif;
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+
+  --ease-cine: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-dolly: cubic-bezier(0.65, 0, 0.35, 1);
+
+  --radius-frame: 2px;
+}
+
+:root {
+  color-scheme: dark;
+  --nav-h: 4rem;
+}
+
+html {
+  background: var(--color-ink);
+  scroll-padding-top: calc(var(--nav-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--color-ink);
+  color: var(--color-bone);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+a,
+button {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+::selection {
+  background: var(--color-jade);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-jade);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Grano de película: capa fija, sin eventos, nunca sobre contenedores con scroll. */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    font-optical-sizing: auto;
+  }
+
+  .container-x {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .section-y {
+    padding-block: 6rem;
+  }
+
+  @media (min-width: 1024px) {
+    .section-y {
+      padding-block: 9rem;
+    }
+  }
+
+  .placeholder {
+    color: var(--color-jade);
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-style: normal;
+    letter-spacing: 0;
+    line-height: 1.4;
+  }
+}
